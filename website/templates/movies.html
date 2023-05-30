@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}Current Movies{% endblock %}
+
+{% block main %}
+    <div class='text-center'>
+        <h3>When do you want to watch movies?</h3>
+        <form action="/currentMovies" method="post">
+            <div class="mb-3">
+                <select class="form-select mx-auto w-auto" name="date">
+                    <option disabled selected>Choose a Date</option>
+                    {% for date in screening_date %}
+                        <option value="{{ date.date }}">{{ date.date }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="buybtn" class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+
+    <br>
+    <!-- only show when user submit the form-->
+    {% if screening_list %}
+    <h3>Movies on {{ date }}:</h3>
+    <br>
+    <!-- a list of all theater-->
+        {% for theater in theater_list %}
+        <h3 class="text-center">{{ theater.name }}</h3>
+            <!--movie_list is group by theater name and movie name-->
+            {% for movie in movie_list %}
+                {% if theater.name == movie[1].name %}
+                    <table  class="table table-striped table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-start">{{ movie[2].title }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for screening in screening_list %}
+                                {% if movie[2].title == screening[2].title and theater.name == screening[1].name %}
+                                <tr>
+                                    <td class="text-start">{{ screening[0].time.strftime('%H:%M') }}</td>
+                                    {% if screening[0].available_seats == 0 %}
+                                        <td class="text-end">
+                                            <button type="submit" class="btn btn-danger" disabled>Sold Out</button>
+                                        </td>
+                                    {% else %}
+                                        <td class="text-end">
+                                            <form action="/getTicket" method="post">
+                                                <input type="hidden" name="screening_id" value="{{ screening[0].id }}">
+                                                <button type="submit" class="btn btn-primary">Book</button>            
+                                            </form>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    <!--Tuple of Model Screening, Theater, and Movie -->
+    {% endif %}
+{% endblock %}

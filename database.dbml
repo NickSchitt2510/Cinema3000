@@ -1,0 +1,46 @@
+// Use DBML to define your database structure
+// Docs: https://www.dbml.org/docs
+
+Table user {
+  id integer [pk]
+  email varchar [unique]
+  password varchar
+  first_name varchar
+  last_name varchar
+}
+
+Table theater {
+  id integer [pk]
+  name varchar
+  number_if_seats integer
+  available_movies text
+}
+
+Table movie {
+  id integer [pk]
+  title varchar
+  price integer
+  release_date date
+}
+
+
+Table screening {
+  id integer [pk]
+  date date
+  time time
+  available_seats integer
+  theater_id integer [ref: > theater.id] // many-to-one
+  movie_id integer [ref: > movie.id]
+}
+
+Table booking {
+  id integer [pk]
+  number_of_tickets varchar
+  timestamp timestamp
+  user_id integer [ref: > user.id]
+}
+
+Table screening_booking {
+  screening_id integer [ref: > screening.id]
+  booking_id integer [ref: > booking.id]
+}

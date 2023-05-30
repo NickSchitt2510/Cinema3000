@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Theater{% endblock%}
+
+{% block main %}
+<table class="table table-striped table-borderless table-hover">
+    <thead>
+        <tr>
+            <th class="text-start">Theater Name</th>
+            <th class="text-start">Number of Seats</th>
+            <th class="text-start">Current Movies</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for theater in theater_list %}
+            <tr>
+                <td class="text-start">{{ theater.name }}</td>
+                <td class="text-start">{{ theater.number_of_seats }}</td>
+                <td class="text-start">
+                {% set available = theater.available_movies.split(", ") %}
+                    {% for movie in available %}
+                        {{ movie }}
+                        <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

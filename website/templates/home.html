@@ -1,0 +1,36 @@
+<!--should have 4 sections to click into different page-->
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock%}
+
+{% block main %}
+    <div class="text-center">
+        <div class="row justify-content-center">
+            <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="/static/image/movie-theater.png" class="pb-5 card-img-top img-fluid mx-auto" style="width: 150px;" alt="theater">
+                    <h3 class="card-title">Theater</h3>
+                    <p class="card-text">Click here to know more about CINEMA3000's theaters.</p>
+                    <a href="/theater" class="btn btn-primary">Go to Theater</a>
+                </div>
+            </div>
+            <div class="card shadow p-3 mb-5 bg-body rounded offset-md-1" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="/static/image/movie.png" class="pb-5 card-img-top img-fluid mx-auto" style="width: 150px;" alt="movie">
+                    <h3 class="card-title">Current Movies</h3>
+                    <p class="card-text">Click here to see what movies available in all theaters.</p>
+                    <a href="/currentMovies" class="btn btn-primary">Go to Current Movies</a>
+                </div>
+            </div>
+            <div class="card shadow p-3 mb-5 bg-body rounded offset-md-1" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="/static/image/booking.png" class="pb-5 card-img-top img-fluid mx-auto" style="width: 150px;" alt="booking">
+                    <h3 class="card-title">My Bookings</h3>
+                    <p class="card-text">Click here to check your previous bookings.</p>
+                    <a href="/myBooking" class="btn btn-primary">Go to My Bookings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

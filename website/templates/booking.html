@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}My Bookings{% endblock%}
+
+{% block main %}
+    <h2>Hi, {{ user.first_name }}!</h2>
+    <h2>Welcome to your booking page!</h2>
+    <br>
+    <table class="table table-striped table-borderless table-hover" >
+        <thead>
+            <tr>
+                <th class="text-start">Transaction ID</th>
+                <th class="text-start">Theater</th>
+                <th class="text-start">Movie</th>
+                <th class="text-start">Date</th>
+                <th class="text-start">Time</th>
+                <th class="text-start">Ticket Price</th>
+                <th class="text-start">Tickets Booked</th>
+                <th class="text-start">Total Price</th>
+                <th class="text-start">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody><!--booking_history is group by booking, screening, theater, and movie-->
+            {% for history in booking_history %}
+                <tr>
+                    <td class="text-start">{{ history[0].id }}</td>
+                    <td class="text-start">{{ history[2].name }}</td>
+                    <td class="text-start">{{ history[3].title }}</td>
+                    <td class="text-start">{{ history[1].date }}</td>
+                    <td class="text-start">{{ history[1].time.strftime('%H:%M') }}</td>
+                    <td class="text-start">${{ history[3].price }}</td>
+                    <td class="text-start">{{ history[0].number_of_tickets }}</td>
+                    <td class="text-start">${{ history[0].number_of_tickets * history[3].price }}</td>
+                    <td class="text-start">{{ history[0].timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+{% endblock %}
